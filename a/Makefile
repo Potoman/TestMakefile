@@ -1,20 +1,14 @@
 current_dir = $(shell pwd)
 
-msg := b
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+LOCAL_PATH := $(patsubst %/,%,$(dir $(mkfile_path)))
+PATH_MESSAGING_A := $(LOCAL_PATH)/messaging.json
 
-msg.json:
-	@ echo A_MSG_OUT_OF_DATE_!!!
-
-.PHONY: path_messaging_a.done
-path_messaging_a.done:msg.json
+# Good way to get file path from other makefile.
+path_messaging_a.done:$(PATH_MESSAGING_A)
 	@ { \
 	set -e ;\
-	echo msg=$$msg ;\
-	msg="header" ;\
-	msg="$$msg :footer" ;\
-	echo msg=$$msg ;\
-	echo "f..." ;\
-	echo $(@D) ;\
 	touch $@ ;\
-	echo "path_lib_a" > $@ ;\
+	echo Messaging updated by user. ;\
+	echo "$(PATH_MESSAGING_A)" > $@ ;\
 	}

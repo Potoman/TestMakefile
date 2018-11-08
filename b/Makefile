@@ -1,3 +1,4 @@
+$(info cd : $(MAKEFILE_LIST))
 
 path_messaging_b.done:
 	@ { \
